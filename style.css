@@ -176,12 +176,12 @@ canvas {
   }
 
   .todo-item {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   .date-time {
     font-size: 0.9rem;
-    margin-top: 1rem;
+    margin-top: 5rem;
     margin-bottom: 1rem;
   }
 }
