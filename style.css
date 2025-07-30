@@ -9,7 +9,7 @@
 
 body {
   margin: 0;
-  padding: 0;
+  padding: 2rem 1rem;
   font-family: var(--main-font);
   background: var(--bg-color);
   color: var(--text-color);
@@ -17,93 +17,94 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 2rem;
   box-sizing: border-box;
 }
 
 .date-time {
+  color: #bfbfbf;
   text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
+  margin: 1rem 0 1.5rem;
+  font-size: 1rem;
 }
 
-.countdown {
-  text-align: center;
-  font-size: 2.5rem;
+/* Flip Countdown */
+.flip-countdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
-.todo-container {
-  width: 100%;
-  max-width: 600px;
-  background: #1a1a1a;
-  padding: 1.5rem;
+.flip-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.flip-card {
+  background: #43ae11;
+  color: #000;
+  font-weight: bold;
+  font-size: 2.2rem;
+  width: 70px;
+  height: 70px;
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
-  margin-bottom: 2rem;
-}
-
-.todo-container h2 {
-  margin-bottom: 1rem;
-  font-weight: 600;
-  font-size: 1.25rem;
-}
-
-.todo-item {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
-  margin-bottom: 0.75rem;
-}
-
-.todo-item input[type="checkbox"] {
-  margin-right: 1rem;
-  transform: scale(1.3);
-}
-
-canvas {
-  width: 100% !important;
-  max-width: 600px;
-}
-
-@media (max-width: 600px) {
-  .countdown {
-    font-size: 1.8rem;
-  }
-
-  .date-time {
-    font-size: 1.2rem;
-  }
-
-  .todo-container h2 {
-    font-size: 1rem;
-  }
-}
-.todo-container {
-  max-width: 400px;
-  margin: auto;
-  padding: 1.5rem;
-  background: #121212;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  color: #fff;
+  justify-content: center;
   font-family: 'Segoe UI', sans-serif;
+  transition: transform 0.3s ease;
 }
 
-.todo-container h2 {
-  font-size: 1.6rem;
-  margin-bottom: 1rem;
-  color: #e0e0e0;
-  text-align: center;
+.flip-card:hover {
+  transform: scale(1.05);
+}
+
+.flip-unit span {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* Todo List */
+.todo-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  padding: 1.5rem 1rem;
+  color: var(--text-color);
+  font-family: 'Segoe UI', sans-serif;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+
+.todo-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 2rem auto;
 }
 
 .todo-item {
+  width: 45%;
+  min-width: 120px;
+  text-align: left;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1rem;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  animation: slideIn 0.4s ease forwards;
 }
 
 .todo-item i {
@@ -113,9 +114,74 @@ canvas {
 }
 
 .todo-item i.completed {
-  color: #4caf50;
+  color: var(--completed-color);
 }
 
 .todo-item:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
+  transition: transform 0.3s ease;
+}
+
+/* Individual item delays */
+.todo-item:nth-child(1) { animation-delay: 0s; }
+.todo-item:nth-child(2) { animation-delay: 0.1s; }
+.todo-item:nth-child(3) { animation-delay: 0.2s; }
+.todo-item:nth-child(4) { animation-delay: 0.3s; }
+.todo-item:nth-child(5) { animation-delay: 0.4s; }
+
+/* Slide-in animation */
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Canvas (chart) */
+canvas {
+  width: 100% !important;
+  max-width: 600px;
+  margin-top: 2rem;
+  display: block;
+  animation: slideIn 0.6s ease both;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 600px) {
+  body {
+    padding: 1.5rem 1rem;
+  }
+
+  .flip-card {
+    width: 55px;
+    height: 55px;
+    font-size: 1.6rem;
+    border-radius: 10px;
+  }
+
+  .flip-unit span {
+    font-size: 0.75rem;
+  }
+
+  .todo-container {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  .todo-item {
+    font-size: 1rem;
+  }
+
+  .date-time {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 }
